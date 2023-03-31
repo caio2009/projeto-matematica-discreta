@@ -2,7 +2,8 @@
 
 int main() {
     int continuarRodando = 1;
-    int qtdElementosConjuntoA; 
+    int i;
+    int qtdElementosConjuntoA;
     int qtdElementosConjuntoB;
     int opcaoEscolhida;
 
@@ -16,14 +17,14 @@ int main() {
 
     printf("--------------------------------------------------------------------------------\n");
     printf("Definindo elementos do Conjunto A\n\n");
-    for (int i = 0; i < qtdElementosConjuntoA; i++) {
+    for (i = 0; i < qtdElementosConjuntoA; i++) {
         printf("Digite o valor do #%i elemento: ", i + 1);
         scanf("%i", &conjuntoA[i]);
     }
 
     printf("--------------------------------------------------------------------------------\n");
     printf("Definindo elementos do Conjunto B\n\n");
-    for (int i = 0; i < qtdElementosConjuntoB; i++) {
+    for (i = 0; i < qtdElementosConjuntoB; i++) {
         printf("Digite o valor do #%i elemento: ", i + 1);
         scanf("%i", &conjuntoB[i]);
     }
@@ -32,7 +33,7 @@ int main() {
         printf("--------------------------------------------------------------------------------\n");
 
         printf("A = { ");
-        for (int i = 0; i < qtdElementosConjuntoA; i++) {
+        for (i = 0; i < qtdElementosConjuntoA; i++) {
             if (i == qtdElementosConjuntoA - 1)
                 printf("%i", conjuntoA[i]);
             else
@@ -41,7 +42,7 @@ int main() {
         printf(" }\n");
 
         printf("B = { ");
-        for (int i = 0; i < qtdElementosConjuntoB; i++) {
+        for (i = 0; i < qtdElementosConjuntoB; i++) {
             if (i == qtdElementosConjuntoB - 1)
                 printf("%i", conjuntoB[i]);
             else
