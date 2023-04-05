@@ -27,7 +27,7 @@ int main() {
     for (i = 0; i < qtdElementosConjuntoA; i++) {
         printf("Digite o valor do #%i elemento: ", i + 1);
         scanf("%i", &elemento);
-        if (jaExisteElemento(conjuntoA, qtdElementosConjuntoA, elemento)) {
+        if (i != 0 && jaExisteElemento(conjuntoA, qtdElementosConjuntoA, elemento)) {
             printf("Já existe esse elemento dentro do conjunto A!\n");
             i--;
         } else {
@@ -40,7 +40,7 @@ int main() {
     for (i = 0; i < qtdElementosConjuntoB; i++) {
         printf("Digite o valor do #%i elemento: ", i + 1);
         scanf("%i", &elemento);
-        if (jaExisteElemento(conjuntoB, qtdElementosConjuntoB, elemento)) {
+        if (i != 0 && jaExisteElemento(conjuntoB, qtdElementosConjuntoB, elemento)) {
             printf("Já existe esse elemento dentro do conjunto B!\n");
             i--;
         } else {
