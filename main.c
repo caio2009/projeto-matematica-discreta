@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void diferenca(int *conjuntoA, int qtdElementosConjuntoA, int *conjuntoB, int qtdElementosConjuntoB);
+void interseccao(int *conjuntoA, int qtdElementosConjuntoA, int *conjuntoB, int qtdElementosConjuntoB);
 int jaExisteElemento(int *array, int tamanho, int elemento);
-void uniao(int *conjuntoA, int tamanhoConjuntoA, int *conjuntoB, int tamanhoConjuntoB);
+void uniao(int *conjuntoA, int qtdElementosConjuntoA, int *conjuntoB, int qtdElementosConjuntoB);
 
 int main() {
     int continuarRodando = 1;
@@ -77,6 +79,7 @@ int main() {
 
         switch (opcaoEscolhida) {
             case 1:
+                diferenca(conjuntoA, qtdElementosConjuntoA, conjuntoB, qtdElementosConjuntoB);
                 break;
             case 2:
                 break;
@@ -94,6 +97,34 @@ int main() {
     return 0;
 }
 
+void diferenca(int *conjuntoA, int qtdElementosConjuntoA, int *conjuntoB, int qtdElementosConjuntoB) {
+    int i;
+    int qtdElementosConjuntoDiferenca = 0;
+    int *diferenca;
+
+    // Criar um vetor dinâmico para poder armazenar a diferença entre os dois conjutos.
+
+    diferenca = (int *) malloc(qtdElementosConjuntoA * sizeof(int));
+    for (i = 0; i < qtdElementosConjuntoA; i++) {
+        if (!jaExisteElemento(conjuntoB, qtdElementosConjuntoB, conjuntoA[i])) {
+            diferenca[qtdElementosConjuntoDiferenca++] = conjuntoA[i];
+        }
+    }
+
+    if (qtdElementosConjuntoDiferenca < qtdElementosConjuntoA) {
+        diferenca = (int *) realloc(diferenca, qtdElementosConjuntoDiferenca * sizeof(int));
+    }
+
+    // Imprimir na tela.
+
+    printf("S = { ");
+    for (i = 0; i < qtdElementosConjuntoDiferenca; i++) {
+        if (i < qtdElementosConjuntoDiferenca - 1) printf("%i, ", diferenca[i]);
+        else printf("%i", diferenca[i]);
+    }
+    printf(" }\n\n");
+}
+
 int jaExisteElemento(int *array, int tamanho, int elemento) {
     int i;
     for (i = 0; i < tamanho; i++) {
@@ -102,25 +133,25 @@ int jaExisteElemento(int *array, int tamanho, int elemento) {
     return 0;
 }
 
-void uniao(int *conjuntoA, int tamanhoConjuntoA, int *conjuntoB, int tamanhoConjuntoB) {
-    int elementoAMais = 0;
+void uniao(int *conjuntoA, int qtdElementosConjuntoA, int *conjuntoB, int qtdElementosConjuntoB) {
+    int elementosAMais = 0;
     int i;
     int maior;
     int menor;
-    int tamanhoConjuntoUniao;
+    int qtdElementosConjuntoUniao;
     int *maiorConjunto;
     int *menorConjunto;
     int *uniao;
 
-    if (tamanhoConjuntoA >= tamanhoConjuntoB) {
-        maior = tamanhoConjuntoA;
+    if (qtdElementosConjuntoA >= qtdElementosConjuntoB) {
+        maior = qtdElementosConjuntoA;
         maiorConjunto = conjuntoA;
-        menor = tamanhoConjuntoB;
+        menor = qtdElementosConjuntoB;
         menorConjunto = conjuntoB;
     } else {
-        maior = tamanhoConjuntoB;
+        maior = qtdElementosConjuntoB;
         maiorConjunto = conjuntoB;
-        menor = tamanhoConjuntoA;
+        menor = qtdElementosConjuntoA;
         menorConjunto = conjuntoA;
     }
 
@@ -132,21 +163,21 @@ void uniao(int *conjuntoA, int tamanhoConjuntoA, int *conjuntoB, int tamanhoConj
     }
     for (i = 0; i < menor; i++) {
         if (!jaExisteElemento(maiorConjunto, maior, menorConjunto[i])) {
-            uniao[maior + elementoAMais] = menorConjunto[i];
-            elementoAMais++;
+            uniao[maior + elementosAMais] = menorConjunto[i];
+            elementosAMais++;
         }
     }
 
-    tamanhoConjuntoUniao = maior + elementoAMais;
-    if (tamanhoConjuntoUniao < maior + menor) {
-        uniao = (int *) realloc(uniao, tamanhoConjuntoUniao * sizeof(int));
+    qtdElementosConjuntoUniao = maior + elementosAMais;
+    if (qtdElementosConjuntoUniao < maior + menor) {
+        uniao = (int *) realloc(uniao, qtdElementosConjuntoUniao * sizeof(int));
     }
 
     // Imprimir na tela.
 
     printf("S = { ");
-    for (i = 0; i < tamanhoConjuntoUniao; i++) {
-        if (i < tamanhoConjuntoUniao - 1) printf("%i, ", uniao[i]);
+    for (i = 0; i < qtdElementosConjuntoUniao; i++) {
+        if (i < qtdElementosConjuntoUniao - 1) printf("%i, ", uniao[i]);
         else printf("%i", uniao[i]);
     }
     printf(" }\n\n");
