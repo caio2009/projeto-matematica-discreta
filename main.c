@@ -182,11 +182,10 @@ int jaExisteElemento(int *array, int tamanho, int elemento) {
 }
 
 void uniao(int *conjuntoA, int qtdElementosConjuntoA, int *conjuntoB, int qtdElementosConjuntoB) {
-    int elementosAMais = 0;
     int i;
     int maior;
     int menor;
-    int qtdElementosConjuntoUniao;
+    int qtdElementosConjuntoUniao = 0;
     int *maiorConjunto;
     int *menorConjunto;
     int *uniao;
@@ -209,16 +208,14 @@ void uniao(int *conjuntoA, int qtdElementosConjuntoA, int *conjuntoB, int qtdEle
 
     uniao = (int *) malloc((qtdElementosConjuntoA + qtdElementosConjuntoB) * sizeof(int));
     for (i = 0; i < maior; i++) {
-        uniao[i] = maiorConjunto[i];
+        uniao[qtdElementosConjuntoUniao++] = maiorConjunto[i];
     }
     for (i = 0; i < menor; i++) {
         if (!jaExisteElemento(maiorConjunto, maior, menorConjunto[i])) {
-            uniao[maior + elementosAMais] = menorConjunto[i];
-            elementosAMais++;
+            uniao[qtdElementosConjuntoUniao++] = menorConjunto[i];
         }
     }
 
-    qtdElementosConjuntoUniao = maior + elementosAMais;
     if (qtdElementosConjuntoUniao < maior + menor) {
         uniao = (int *) realloc(uniao, qtdElementosConjuntoUniao * sizeof(int));
     }
