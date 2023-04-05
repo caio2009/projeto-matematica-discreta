@@ -82,6 +82,7 @@ int main() {
                 diferenca(conjuntoA, qtdElementosConjuntoA, conjuntoB, qtdElementosConjuntoB);
                 break;
             case 2:
+                interseccao(conjuntoA, qtdElementosConjuntoA, conjuntoB, qtdElementosConjuntoB);
                 break;
             case 3:
                 uniao(conjuntoA, qtdElementosConjuntoA, conjuntoB, qtdElementosConjuntoB);
@@ -125,6 +126,53 @@ void diferenca(int *conjuntoA, int qtdElementosConjuntoA, int *conjuntoB, int qt
     printf(" }\n\n");
 }
 
+void interseccao(int *conjuntoA, int qtdElementosConjuntoA, int *conjuntoB, int qtdElementosConjuntoB) {
+    int i;
+    int maior;
+    int menor;
+    int qtdElementosConjuntoInterseccao = 0;
+    int *interseccao;
+    int *menorConjunto;
+    int *maiorConjunto;
+
+    // Achar o menor e maior o conjunto.
+    // E achar o tamanho do menor conjunto para determinar a quantidade máxima de elementos do conjunto da intersecção.
+
+    if (qtdElementosConjuntoA >= qtdElementosConjuntoB) {
+        maior = qtdElementosConjuntoA;
+        maiorConjunto = conjuntoA;
+        menor = qtdElementosConjuntoB;
+        menorConjunto = conjuntoB;
+    } else {
+        maior = qtdElementosConjuntoB;
+        maiorConjunto = conjuntoB;
+        menor = qtdElementosConjuntoA;
+        menorConjunto = conjuntoA;
+    }
+
+    // Criar um vetor dinâmico para poder armazenar a diferença entre os dois conjutos.
+
+    interseccao = (int *) malloc(menor * sizeof(int));
+    for (i = 0; i < menor; i++) {
+        if (jaExisteElemento(maiorConjunto, maior, menorConjunto[i])) {
+            interseccao[qtdElementosConjuntoInterseccao++] = menorConjunto[i];
+        }
+    }
+
+    if (qtdElementosConjuntoInterseccao < menor) {
+        interseccao = (int *) realloc(interseccao, qtdElementosConjuntoInterseccao * sizeof(int));
+    }
+
+    // Imprimir na tela.
+
+    printf("S = { ");
+    for (i = 0; i < qtdElementosConjuntoInterseccao; i++) {
+        if (i < qtdElementosConjuntoInterseccao - 1) printf("%i, ", interseccao[i]);
+        else printf("%i", interseccao[i]);
+    }
+    printf(" }\n\n");
+}
+
 int jaExisteElemento(int *array, int tamanho, int elemento) {
     int i;
     for (i = 0; i < tamanho; i++) {
@@ -143,6 +191,8 @@ void uniao(int *conjuntoA, int qtdElementosConjuntoA, int *conjuntoB, int qtdEle
     int *menorConjunto;
     int *uniao;
 
+    // Achar o menor e maior o conjunto.
+
     if (qtdElementosConjuntoA >= qtdElementosConjuntoB) {
         maior = qtdElementosConjuntoA;
         maiorConjunto = conjuntoA;
@@ -157,7 +207,7 @@ void uniao(int *conjuntoA, int qtdElementosConjuntoA, int *conjuntoB, int qtdEle
 
     // Criar um vetor dinâmico para poder armazenar a união entre os dois conjuntos.
 
-    uniao = (int *) malloc((maior + menor) * sizeof(int));
+    uniao = (int *) malloc((qtdElementosConjuntoA + qtdElementosConjuntoB) * sizeof(int));
     for (i = 0; i < maior; i++) {
         uniao[i] = maiorConjunto[i];
     }
